@@ -30,7 +30,7 @@ namespace Snap.Core.Mvvm
             return result;
         }
 
-        public ObservableRecipient2():base() 
+        public ObservableRecipient2() : base()
         {
             IsActive = true;
         }
