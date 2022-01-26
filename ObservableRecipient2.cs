@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace Snap.Core.Mvvm
 {
     /// <summary>
-    /// 解构时自动设置 <see cref="ObservableRecipient.IsActive"/>
+    /// 自动设置 <see cref="ObservableRecipient.IsActive"/>
     /// </summary>
     public class ObservableRecipient2 : ObservableRecipient
     {
