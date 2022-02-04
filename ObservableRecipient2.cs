@@ -30,10 +30,6 @@ namespace Snap.Core.Mvvm
             return result;
         }
 
-        public ObservableRecipient2() : base()
-        {
-            IsActive = true;
-        }
         public ObservableRecipient2(IMessenger messenger) : base(messenger)
         {
             IsActive = true;
