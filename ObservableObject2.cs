@@ -25,19 +25,19 @@ namespace Snap.Core.Mvvm
             }
             return result;
         }
-        
+
         protected bool SetPropertyAndCallbackOnCompletion<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Func<Task> thenForget, [CallerMemberName] string? propertyName = null)
         {
             return SetPropertyAndCallbackOnCompletion(ref field, newValue, thenForget.Invoke().Forget, propertyName);
         }
-        
+
         protected bool SetPropertyAndCallbackOverridePropertyState<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Action then, [CallerMemberName] string? propertyName = null)
         {
             bool result = SetProperty(ref field, newValue, propertyName);
             then.Invoke();
             return result;
         }
-        
+
         protected bool SetPropertyAndCallbackOverridePropertyState<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Func<Task> thenForget, [CallerMemberName] string? propertyName = null)
         {
             return SetPropertyAndCallbackOverridePropertyState(ref field, newValue, thenForget.Invoke().Forget, propertyName);

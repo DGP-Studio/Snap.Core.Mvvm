@@ -34,7 +34,7 @@ namespace Snap.Core.Mvvm
         {
             return SetPropertyAndCallbackOnCompletion(ref field, newValue, thenForget.Invoke().Forget, propertyName);
         }
-        protected bool SetPropertyAndCallbackOnCompletion<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Func<T,Task> thenForget, [CallerMemberName] string? propertyName = null)
+        protected bool SetPropertyAndCallbackOnCompletion<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Func<T, Task> thenForget, [CallerMemberName] string? propertyName = null)
         {
             return SetPropertyAndCallbackOnCompletion(ref field, newValue, thenForget.Invoke(newValue).Forget, propertyName);
         }
