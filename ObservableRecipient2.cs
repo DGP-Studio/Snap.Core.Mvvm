@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Microsoft.VisualStudio.Threading;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -19,7 +20,6 @@ namespace Snap.Core.Mvvm
             }
             return result;
         }
-
         protected bool SetPropertyAndCallbackOnCompletion<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Action<T> then, [CallerMemberName] string? propertyName = null)
         {
             bool result = SetProperty(ref field, newValue, propertyName);
@@ -28,6 +28,27 @@ namespace Snap.Core.Mvvm
                 then.Invoke(newValue);
             }
             return result;
+        }
+
+        protected bool SetPropertyAndCallbackOnCompletion<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Func<Task> thenForget, [CallerMemberName] string? propertyName = null)
+        {
+            return SetPropertyAndCallbackOnCompletion(ref field, newValue, thenForget.Invoke().Forget, propertyName);
+        }
+        protected bool SetPropertyAndCallbackOnCompletion<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Func<T,Task> thenForget, [CallerMemberName] string? propertyName = null)
+        {
+            return SetPropertyAndCallbackOnCompletion(ref field, newValue, thenForget.Invoke(newValue).Forget, propertyName);
+        }
+
+        protected bool SetPropertyAndCallbackOverridePropertyState<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Action then, [CallerMemberName] string? propertyName = null)
+        {
+            bool result = SetProperty(ref field, newValue, propertyName);
+            then.Invoke();
+            return result;
+        }
+
+        protected bool SetPropertyAndCallbackOverridePropertyState<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Func<Task> thenForget, [CallerMemberName] string? propertyName = null)
+        {
+            return SetPropertyAndCallbackOverridePropertyState(ref field, newValue, thenForget.Invoke().Forget, propertyName);
         }
 
         public ObservableRecipient2(IMessenger messenger) : base(messenger)
