@@ -13,7 +13,7 @@ namespace Snap.Core.Mvvm
     {
         protected bool SetPropertyAndCallbackOnCompletion<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Action then, [CallerMemberName] string? propertyName = null)
         {
-            bool result = SetProperty(ref field, newValue, propertyName);
+            bool result = this.SetProperty(ref field, newValue, propertyName);
             if (result)
             {
                 then.Invoke();
@@ -22,7 +22,7 @@ namespace Snap.Core.Mvvm
         }
         protected bool SetPropertyAndCallbackOnCompletion<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Action<T> then, [CallerMemberName] string? propertyName = null)
         {
-            bool result = SetProperty(ref field, newValue, propertyName);
+            bool result = this.SetProperty(ref field, newValue, propertyName);
             if (result)
             {
                 then.Invoke(newValue);
@@ -32,33 +32,33 @@ namespace Snap.Core.Mvvm
 
         protected bool SetPropertyAndCallbackOnCompletion<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Func<Task> thenForget, [CallerMemberName] string? propertyName = null)
         {
-            return SetPropertyAndCallbackOnCompletion(ref field, newValue, thenForget.Invoke().Forget, propertyName);
+            return this.SetPropertyAndCallbackOnCompletion(ref field, newValue, thenForget.Invoke().Forget, propertyName);
         }
         protected bool SetPropertyAndCallbackOnCompletion<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Func<T, Task> thenForget, [CallerMemberName] string? propertyName = null)
         {
-            return SetPropertyAndCallbackOnCompletion(ref field, newValue, thenForget.Invoke(newValue).Forget, propertyName);
+            return this.SetPropertyAndCallbackOnCompletion(ref field, newValue, thenForget.Invoke(newValue).Forget, propertyName);
         }
 
         protected bool SetPropertyAndCallbackOverridePropertyState<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Action then, [CallerMemberName] string? propertyName = null)
         {
-            bool result = SetProperty(ref field, newValue, propertyName);
+            bool result = this.SetProperty(ref field, newValue, propertyName);
             then.Invoke();
             return result;
         }
 
         protected bool SetPropertyAndCallbackOverridePropertyState<T>([NotNullIfNotNull("newValue")] ref T field, T newValue, Func<Task> thenForget, [CallerMemberName] string? propertyName = null)
         {
-            return SetPropertyAndCallbackOverridePropertyState(ref field, newValue, thenForget.Invoke().Forget, propertyName);
+            return this.SetPropertyAndCallbackOverridePropertyState(ref field, newValue, thenForget.Invoke().Forget, propertyName);
         }
 
         public ObservableRecipient2(IMessenger messenger) : base(messenger)
         {
-            IsActive = true;
+            this.IsActive = true;
         }
 
         ~ObservableRecipient2()
         {
-            IsActive = false;
+            this.IsActive = false;
         }
     }
 }
