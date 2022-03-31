@@ -7,6 +7,5 @@
     [AttributeUsage(AttributeTargets.Method)]
     public class PropertyChangedCallbackAttribute : Attribute
     {
-
     }
 }
