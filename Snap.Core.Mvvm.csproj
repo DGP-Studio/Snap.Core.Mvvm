@@ -15,7 +15,9 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Threading" Version="17.1.46" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading" Version="17.1.46">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
